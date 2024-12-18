@@ -4,6 +4,8 @@ namespace Taboo.Services.Abstracts;
 
 public interface ILanguageService
 {
-    IEnumerable<LanguageGetDTO> GetAsync();
+    Task<IEnumerable<LanguageDTO>> GetAsync();
     Task CreateAsync(LanguageDTO dto);
+    Task<bool> UpdateAsync(string code, LanguageDTO dto);
+    Task<bool> DeleteAsync(string code);
 }
