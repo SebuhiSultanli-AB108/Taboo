@@ -3,11 +3,11 @@ using Taboo.DTOs.Language;
 
 namespace Taboo.Validators.Language;
 
-public class LanguageDtoValidator : AbstractValidator<LanguageDTO>
+public class LanguageGetDtoValidator : AbstractValidator<LanguageGetDTO>
 {
     string maxLenErrMsg(int num) => $"Length of the property must be {num} or less!";
     string nullErrMsg = "Property can not be null or empty!";
-    public LanguageDtoValidator()
+    public LanguageGetDtoValidator()
     {
         RuleFor(x => x.Code)
             .NotNull()

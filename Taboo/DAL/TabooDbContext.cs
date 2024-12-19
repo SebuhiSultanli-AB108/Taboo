@@ -7,21 +7,12 @@ public class TabooDbContext : DbContext
 {
     public TabooDbContext(DbContextOptions options) : base(options) { }
     public DbSet<Language> Languages { get; set; }
+    public DbSet<Word> Words { get; set; }
+    public DbSet<Game> Games { get; set; }
+    public DbSet<BannedWord> BannedWords { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        //Language
-        modelBuilder.Entity<Language>(entity =>
-        {
-            entity.HasKey(x => x.Code);
-            entity.Property(x => x.Code)
-            .IsRequired()
-            .HasMaxLength(2);
-            entity.Property(x => x.Name)
-            .IsRequired()
-            .HasMaxLength(32);
-            entity.Property(x => x.Icon)
-            .IsRequired();
-        });
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(TabooDbContext).Assembly);
         base.OnModelCreating(modelBuilder);
     }
 }
