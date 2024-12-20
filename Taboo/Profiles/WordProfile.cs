@@ -9,7 +9,9 @@ namespace Taboo.Profiles
         public WordProfile()
         {
             CreateMap<WordCreateDTO, Word>().ReverseMap();
-            CreateMap<WordGetDTO, Word>().ReverseMap();
+            CreateMap<Word, WordGetDTO>()
+              .ForMember(l => l.BannedWords, d => d.MapFrom(t =>
+             t.BannedWords.Select(bw => bw.Text).ToList()));
             CreateMap<WordUpdateDTO, Word>().ReverseMap();
 
             CreateMap<string, BannedWord>();
