@@ -1,6 +1,7 @@
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
+using SwaggerThemes;
 using Taboo.DAL;
 
 namespace Taboo;
@@ -29,7 +30,7 @@ public class Program
         if (app.Environment.IsDevelopment())
         {
             app.UseSwagger();
-            app.UseSwaggerUI();
+            app.UseSwaggerUI(Theme.UniversalDark);
         }
 
         app.UseHttpsRedirection();

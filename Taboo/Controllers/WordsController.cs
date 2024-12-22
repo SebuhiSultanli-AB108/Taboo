@@ -42,7 +42,10 @@ public class WordsController(IWordService _service) : ControllerBase
     {
         try
         {
-            dtos.Select(async x => await _service.CreateAsync(x));
+            foreach (WordCreateDTO dto in dtos)
+            {
+                await _service.CreateAsync(dto);
+            }
             return Created();
         }
         catch (Exception ex)

@@ -11,5 +11,6 @@ public class GameProfile : Profile
         CreateMap<GameCreateDTO, Game>()
             .ForMember(x => x.Time, y => y.MapFrom(z => new TimeSpan(10000000 * z.Seconds)))
             .ForMember(x => x.BannedWordCount, y => y.MapFrom(z => (int)z.GameLevel));
+        CreateMap<GameStatusDto, Game>();
     }
 }
