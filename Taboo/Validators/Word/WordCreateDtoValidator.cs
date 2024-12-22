@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using Taboo.DTOs.Word;
+using Taboo.Enums;
 
 namespace Taboo.Validators.Word;
 
@@ -17,7 +18,8 @@ public class WordCreateDtoValidator : AbstractValidator<WordCreateDTO>
             .NotNull().NotEmpty().WithMessage(nullErrMsg)
             .MaximumLength(2).WithMessage(maxLenErrMsg(2));
         RuleFor(x => x.BannedWords)
-            .NotNull().WithMessage(nullErrMsg);
+            .NotNull().WithMessage(nullErrMsg)
+            .Must(x => x.Count == (int)GameLevel.Hard).WithMessage($"{(int)GameLevel.Hard} Unique BannedWords needed!");
         RuleForEach(x => x.BannedWords)
             .NotNull().WithMessage(nullErrMsg)
             .MaximumLength(32).WithMessage(maxLenErrMsg(32));

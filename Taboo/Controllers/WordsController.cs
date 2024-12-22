@@ -37,6 +37,34 @@ public class WordsController(IWordService _service) : ControllerBase
         }
     }
 
+    [HttpPost("AddRange")]
+    public async Task<IActionResult> Range(IEnumerable<WordCreateDTO> dtos)
+    {
+        try
+        {
+            dtos.Select(async x => await _service.CreateAsync(x));
+            return Created();
+        }
+        catch (Exception ex)
+        {
+            if (ex is IBaseException ibe)
+                return StatusCode(ibe.StatusCode, new
+                {
+                    StatusCode = ibe.StatusCode,
+                    Message = ibe.ErrorMessage
+                });
+            else
+            {
+                return BadRequest(new
+                {
+                    StatusCode = StatusCodes.Status400BadRequest,
+                    Message = ex.Message
+                });
+            }
+            throw;
+        }
+    }
+
     [HttpGet]
     public async Task<IActionResult> Get()
     {

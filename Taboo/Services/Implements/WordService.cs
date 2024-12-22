@@ -29,7 +29,6 @@ public class WordService(TabooDbContext _context, IMapper _mapper) : IWordServic
     {
         var word = await _context.Words.Include(x => x.BannedWords).ToListAsync();
         var data = _mapper.Map<IEnumerable<WordGetDTO>>(word);
-        //???
         return data;
     }
 
@@ -37,7 +36,6 @@ public class WordService(TabooDbContext _context, IMapper _mapper) : IWordServic
     {
         var data = await _getByIdAsync(id);
         data = _mapper.Map(dto, data);
-        //???
         await _context.SaveChangesAsync();
     }
 
@@ -60,5 +58,3 @@ public class WordService(TabooDbContext _context, IMapper _mapper) : IWordServic
         return data;
     }
 }
-
-
