@@ -11,14 +11,6 @@ public class GameCreateDtoValidator : AbstractValidator<GameCreateDTO>
 
     public GameCreateDtoValidator()
     {
-        RuleFor(x => x.BannedWordCount)
-            .NotNull().WithMessage(nullErrMsg)
-            .LessThanOrEqualTo(6).WithMessage(maxCountErrMsg(6));
-        //RuleFor(x => x.FailCount)
-        //    .NotNull().WithMessage(nullErrMsg)
-        //    .LessThanOrEqualTo(3).WithMessage(maxCountErrMsg(6));
-        //RuleFor(x => x.Time)
-        //    .NotNull().WithMessage(nullErrMsg);
         RuleFor(x => x.LanguageCode)
             .NotNull().NotEmpty().WithMessage(nullErrMsg)
             .MaximumLength(2).WithMessage(maxLenErrMsg(2));

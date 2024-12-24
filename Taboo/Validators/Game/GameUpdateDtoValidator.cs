@@ -19,7 +19,6 @@ public class GameUpdateDtoValidator : AbstractValidator<GameUpdateDTO>
             .LessThanOrEqualTo(3).WithMessage(maxCountErrMsg(6));
         RuleFor(x => x.Time)
             .NotNull().WithMessage(nullErrMsg);
-        //TODO: Add time cap
         RuleFor(x => x.LanguageCode)
             .NotNull().NotEmpty().WithMessage(nullErrMsg)
             .MaximumLength(2).WithMessage(maxLenErrMsg(2));

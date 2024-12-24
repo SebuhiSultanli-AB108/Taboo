@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Taboo.DTOs.Word;
-using Taboo.Exceptions;
 using Taboo.Services.Abstracts;
 
 namespace Taboo.Controllers;
@@ -12,60 +11,19 @@ public class WordsController(IWordService _service) : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Post(WordCreateDTO dto)
     {
-        try
-        {
-            await _service.CreateAsync(dto);
-            return Created();
-        }
-        catch (Exception ex)
-        {
-            if (ex is IBaseException ibe)
-                return StatusCode(ibe.StatusCode, new
-                {
-                    StatusCode = ibe.StatusCode,
-                    Message = ibe.ErrorMessage
-                });
-            else
-            {
-                return BadRequest(new
-                {
-                    StatusCode = StatusCodes.Status400BadRequest,
-                    Message = ex.Message
-                });
-            }
-            throw;
-        }
+        await _service.CreateAsync(dto);
+        return Created();
     }
 
     [HttpPost("AddRange")]
     public async Task<IActionResult> Range(IEnumerable<WordCreateDTO> dtos)
     {
-        try
+
+        foreach (WordCreateDTO dto in dtos)
         {
-            foreach (WordCreateDTO dto in dtos)
-            {
-                await _service.CreateAsync(dto);
-            }
-            return Created();
+            await _service.CreateAsync(dto);
         }
-        catch (Exception ex)
-        {
-            if (ex is IBaseException ibe)
-                return StatusCode(ibe.StatusCode, new
-                {
-                    StatusCode = ibe.StatusCode,
-                    Message = ibe.ErrorMessage
-                });
-            else
-            {
-                return BadRequest(new
-                {
-                    StatusCode = StatusCodes.Status400BadRequest,
-                    Message = ex.Message
-                });
-            }
-            throw;
-        }
+        return Created();
     }
 
     [HttpGet]
@@ -83,57 +41,14 @@ public class WordsController(IWordService _service) : ControllerBase
     [HttpPut]
     public async Task<IActionResult> Update(int id, WordUpdateDTO dto)
     {
-        try
-        {
-            await _service.UpdateAsync(id, dto);
-            return Ok();
-        }
-        catch (Exception ex)
-        {
-            if (ex is IBaseException ibe)
-                return StatusCode(ibe.StatusCode, new
-                {
-                    StatusCode = ibe.StatusCode,
-                    Message = ibe.ErrorMessage
-                });
-            else
-            {
-                return BadRequest(new
-                {
-                    StatusCode = StatusCodes.Status400BadRequest,
-                    Message = ex.Message
-                });
-            }
-            throw;
-        }
+        await _service.UpdateAsync(id, dto);
+        return Ok();
     }
-
 
     [HttpDelete]
     public async Task<IActionResult> Delete(int id)
     {
-        try
-        {
-            await _service.DeleteAsync(id);
-            return Ok();
-        }
-        catch (Exception ex)
-        {
-            if (ex is IBaseException ibe)
-                return StatusCode(ibe.StatusCode, new
-                {
-                    StatusCode = ibe.StatusCode,
-                    Message = ibe.ErrorMessage
-                });
-            else
-            {
-                return BadRequest(new
-                {
-                    StatusCode = StatusCodes.Status400BadRequest,
-                    Message = ex.Message
-                });
-            }
-            throw;
-        }
+        await _service.DeleteAsync(id);
+        return Ok();
     }
 }

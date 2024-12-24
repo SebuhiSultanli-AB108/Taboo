@@ -1,4 +1,6 @@
-﻿namespace Taboo.Entities;
+﻿using Taboo.Enums;
+
+namespace Taboo.Entities;
 
 public class Game
 {
@@ -10,6 +12,7 @@ public class Game
     public int SuccessAnswer { get; set; }
     public int WrongAnswer { get; set; }
     public int SkipCount { get; set; }
+    public GameLevels Difficulty { get; set; }
     public string LanguageCode { get; set; } = "az";
     public Language Language { get; set; }
 }

@@ -19,7 +19,7 @@ public class WordCreateDtoValidator : AbstractValidator<WordCreateDTO>
             .MaximumLength(2).WithMessage(maxLenErrMsg(2));
         RuleFor(x => x.BannedWords)
             .NotNull().WithMessage(nullErrMsg)
-            .Must(x => x.Count == (int)GameLevel.Hard).WithMessage($"{(int)GameLevel.Hard} Unique BannedWords needed!");
+            .Must(x => x.Count == (int)GameLevels.Hard).WithMessage($"{(int)GameLevels.Hard} Unique BannedWords needed!");
         RuleForEach(x => x.BannedWords)
             .NotNull().WithMessage(nullErrMsg)
             .MaximumLength(32).WithMessage(maxLenErrMsg(32));

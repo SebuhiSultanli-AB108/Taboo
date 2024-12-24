@@ -1,6 +1,6 @@
 ﻿namespace Taboo.Enums;
 
-public enum GameLevel
+public enum GameLevels
 {
     Easy = 4,
     Medium = 5,

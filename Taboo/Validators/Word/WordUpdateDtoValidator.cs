@@ -18,6 +18,5 @@ public class WordUpdateDtoValidator : AbstractValidator<WordUpdateDTO>
             .MaximumLength(2).WithMessage(maxLenErrMsg(2));
         RuleForEach(x => x.BannedWords)
             .NotNull().NotEmpty().WithMessage(nullErrMsg);
-        //TODO: array max len validation
     }
 }

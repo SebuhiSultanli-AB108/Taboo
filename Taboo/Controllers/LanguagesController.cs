@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Taboo.DTOs.Language;
-using Taboo.Exceptions;
 using Taboo.Services.Abstracts;
 
 namespace Taboo.Controllers;
@@ -12,29 +11,8 @@ public class LanguagesController(ILanguageService _service) : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Post(LanguageCreateDTO dto)
     {
-        try
-        {
-            await _service.CreateAsync(dto);
-            return Created();
-        }
-        catch (Exception ex)
-        {
-            if (ex is IBaseException ibe)
-                return StatusCode(ibe.StatusCode, new
-                {
-                    StatusCode = ibe.StatusCode,
-                    Message = ibe.ErrorMessage
-                });
-            else
-            {
-                return BadRequest(new
-                {
-                    StatusCode = StatusCodes.Status400BadRequest,
-                    Message = ex.Message
-                });
-            }
-            throw;
-        }
+        await _service.CreateAsync(dto);
+        return Created();
     }
 
     [HttpGet]
@@ -52,56 +30,14 @@ public class LanguagesController(ILanguageService _service) : ControllerBase
     [HttpPut]
     public async Task<IActionResult> Update(string code, LanguageUpdateDTO dto)
     {
-        try
-        {
-            await _service.UpdateAsync(code, dto);
-            return Ok();
-        }
-        catch (Exception ex)
-        {
-            if (ex is IBaseException ibe)
-                return StatusCode(ibe.StatusCode, new
-                {
-                    StatusCode = ibe.StatusCode,
-                    Message = ibe.ErrorMessage
-                });
-            else
-            {
-                return BadRequest(new
-                {
-                    StatusCode = StatusCodes.Status400BadRequest,
-                    Message = ex.Message
-                });
-            }
-            throw;
-        }
+        await _service.UpdateAsync(code, dto);
+        return Ok();
     }
 
     [HttpDelete]
     public async Task<IActionResult> Delete(string code)
     {
-        try
-        {
-            await _service.DeleteAsync(code);
-            return Ok();
-        }
-        catch (Exception ex)
-        {
-            if (ex is IBaseException ibe)
-                return StatusCode(ibe.StatusCode, new
-                {
-                    StatusCode = ibe.StatusCode,
-                    Message = ibe.ErrorMessage
-                });
-            else
-            {
-                return BadRequest(new
-                {
-                    StatusCode = StatusCodes.Status400BadRequest,
-                    Message = ex.Message
-                });
-            }
-            throw;
-        }
+        await _service.DeleteAsync(code);
+        return Ok();
     }
 }

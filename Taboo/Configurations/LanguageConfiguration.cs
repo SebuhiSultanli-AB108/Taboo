@@ -22,11 +22,5 @@ public class LanguageConfiguration : IEntityTypeConfiguration<Language>
             .HasMaxLength(32);
         builder.Property(x => x.Icon)
             .IsRequired();
-        //builder.HasData(new Language
-        //{
-        //    Code = "az",
-        //    Icon = "https://www.keyfactor.com/wp-content/uploads/iStock-1252346549-1.jpg",
-        //    Name = "Azerbaycan"
-        //});
     }
 }
